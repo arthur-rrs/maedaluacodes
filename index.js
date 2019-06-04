@@ -22,7 +22,11 @@ function resolveResponse(body) {
            code += 1;
        }
        const element = transformInJSON(rows[index]);
-       element.codigo = '0' + code;
+       if (code < 1000) {
+          element.codigo = '0' + code;
+       if (code >= 1000) {
+          element.codigo = code;
+       }        
        sellers.push(element);
        code++;
     }
@@ -58,7 +62,7 @@ function persistSeller(body) {
 }
 
 function getUrl(collector) {
-	let url = 'http://gestor.dasorte.com/redepos/comum-vendedor/dados?enderecos=1&id_modelo=270&secao=principal&parametros=id_arrecadador:arrecadador:Arrecadador:IGUAL:%id::%name::false:;&results=100&sortCol=codigo&sortDir=ASC&startIndex=0&__seq=490241';
+	let url = 'http://gestor.dasorte.com/redepos/comum-vendedor/dados?enderecos=1&id_modelo=270&secao=principal&parametros=id_arrecadador:arrecadador:Arrecadador:IGUAL:%id::%name::false:;&results=1000&sortCol=codigo&sortDir=ASC&startIndex=0&__seq=490241';
 	let newurl = url.replace('%id', collector.id).replace('%name', collector.name);
 	
 	return newurl;
@@ -78,7 +82,8 @@ function main() {
 		{id: 1262, name: '04 - Ponte dos Carvalhos 02', code: 700},
 		{id: 1589, name: '12 - Praias Cabo', code: 500},
 		{id: 1522, name: '11 - Ipojuca', code: 400},
-		{id: 1203, name: '01 - Escritorio', code: 000}
+		{id: 1203, name: '01 - Escritorio', code: 000},
+		{id: 1803, name: '1000 - Desistentes', code: 1000}
 	];
 	let info = 'Informe o Arrecadador';
 	for (let index = 0; index < collectors.length; index++) {
