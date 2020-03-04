@@ -41,7 +41,7 @@ function resolveResponse(body) {
         console.log('ok');
         
         persistSeller({
-            "codigo" : (900+index),
+            "codigo" : (920+index),
             "id"   : sellers[index].id,
             "estado" : "PE",
             "id_supervisor": 866,
